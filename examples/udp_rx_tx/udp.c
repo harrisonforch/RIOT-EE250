@@ -235,7 +235,7 @@ void print_rss(msg_t *msg)
          * have to print out the RSS of each packet received. Feel free make any
          * changes to help you finish the lab faster 
         */
-        printf("RSS value: %d\n",hdr->rssi - CC2538_RSSI_OFFSET);
+        printf("RSS value: %d\n", CC2538_RSSI_OFFSET-hdr->rssi);
         /* Tell GNRC you are done with this packet so it can release the memory */
         gnrc_pktbuf_release(pkt);
     }
