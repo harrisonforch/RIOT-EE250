@@ -43,12 +43,14 @@ int adc_init(adc_t line)
     adca->ADCCON2 = 0x0;
     /* configure ADC GPIO as analog input */
     gpio_init(adc_config[line], GPIO_IN_ANALOG);
+    gpio_init(GPIO_PIN(PORT_D,2), GPIO_OUT);
 
     return 0;
 }
 
 int adc_sample(adc_t line, adc_res_t res)
 {
+    gpio_set(GPIO_PIN(PORT_D,2));
     /* check if adc line valid */
     if (line >= ADC_NUMOF) {
         DEBUG("adc_sample: invalid ADC line!\n");
@@ -101,6 +103,6 @@ int adc_sample(adc_t line, adc_res_t res)
     if (sample < 0) {
         sample = 0;
     }
-
+    gpio_clear(GPIO_PIN(PORT_D,2));
     return (int)sample;
 }
